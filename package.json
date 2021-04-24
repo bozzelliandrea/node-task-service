@@ -19,7 +19,7 @@
   "homepage": "https://github.com/bozzaccio/mern-board#readme",
   "devDependencies": {
     "@types/express": "4.17.11",
-    "@types/node": "14.0.13",
+    "@types/node": "14.14.41",
     "ts-node": "9.1.1",
     "typeorm": "^0.2.32",
     "typescript": "3.9.5"
