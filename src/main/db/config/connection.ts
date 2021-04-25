@@ -13,7 +13,7 @@ export const connect = async () => { await createConnection({
                 rejectUnauthorized: false,
             },
         },
-        synchronize: false,
+        synchronize: true,
         logging: true,
         entities: [
             'src/db/entity/*.ts'
