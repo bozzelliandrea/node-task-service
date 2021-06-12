@@ -1,10 +1,10 @@
 import { Router, Request, Response } from 'express';
-import { createUser, getUser, deleteUser, updateUserPassword } from '../../bs/service/user.service';
+import { UserService } from '../../bs/service/user.service';
 import * as bodyParser from 'body-parser';
 import {UserModel} from '../../bs/model/user.model';
 
 export const user = Router();
-
+const userService = new UserService();
 const _badRequestMessage: string = 'Error: Bad Request';
 const jsonParser = bodyParser.json();
 
@@ -12,7 +12,7 @@ const jsonParser = bodyParser.json();
 user.post('/user',jsonParser,  async (req: Request,res: Response) => {
 
     if(req.body?.user){
-        createUser(req.body.user).then((user: UserModel) => {
+        userService.createUser(req.body.user).then((user: UserModel) => {
             res.status(200).send(user);
         });
     } else {
@@ -27,7 +27,7 @@ user.get('/user/:id', async (req: Request,res: Response) => {
     
         const id: number = parseInt(req.params.id);
     
-        getUser(id).then((user: UserModel) => {
+        userService.getUser(id).then((user: UserModel) => {
             res.status(200).send(user);
         });
     } else {
@@ -44,7 +44,7 @@ user.patch('/user/:id', async (req: Request,res: Response) => {
             req.body.user['id'] = parseInt(req.params.id);
         }
 
-        updateUserPassword(req.body.user).then((user: UserModel) => {
+        userService.updateUserPassword(req.body.user).then((user: UserModel) => {
             res.status(200).send(user);
         });
     } else {
@@ -59,7 +59,7 @@ user.delete('/user/:id', async (req,res) => {
     
         const id: number = parseInt(req.params.id);
     
-        deleteUser(id).then((isDeleted: boolean) => {
+        userService.deleteUser(id).then((isDeleted: boolean) => {
             if(isDeleted){
                 res.sendStatus(200);
             } else {
