@@ -1,24 +1,39 @@
 import express from 'express';
-import {connect} from './src/db/config/connection';
-import {user} from './src/api/user/user';
+import cors from 'cors';
+import helmet from 'helmet';
+import * as dotenv from 'dotenv';
 
-export function createServer() {
+import { connect } from './src/main/db/config/connection';
+import { user } from './src/main/api/user/user.api';
 
-  // database connection
-  try{
-    connect();
-  } catch(error) {
-    console.error(error);
-  }
+dotenv.config();
+
+if (!process.env.APP_PORT) {
+  console.log(`Config Error: Node server port is undefined`);
+  process.exit(1);
+}
+
+const PORT = parseInt(process.env.APP_PORT as string, 10);
+const APP_NAME = process.env.APP_NAME;
+
+
+// database connection
+connect().then(() => {
 
   const app = express();
-  const PORT = 8000;
 
-  app.get('/', (req: any, res: any) => res.send('Express + TypeScript Server'));
+  app.use(helmet());
+  app.use(cors());
+  app.use(express.json());
 
+  const server = app.listen(PORT, () => {
+    console.log(`[server]: ${APP_NAME} is running at http://localhost:${PORT}`);
+  });
+
+  // Default URL
+  app.get('/', (req: any, res: any) => res.send(`Welcome to ${APP_NAME} ~ Running....`));
+
+  // Routes
   app.use('/api', user);
 
-  app.listen(PORT, () => {
-    console.log(`[server]: Server is running at http://localhost:${PORT}`);
-  });
-}
+}).catch((error) => console.error(error));

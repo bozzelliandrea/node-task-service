@@ -13,7 +13,7 @@ export function validateId(target: any, propertyName: string, descriptor: TypedP
                 throw new ValidationException("Missing required Id.");
         }
 
-        if(!isNaN(Reflect.getOwnMetadata(requiredMetadataKey, target, propertyName))){
+        if(isNaN(Reflect.getOwnMetadata(requiredMetadataKey, target, propertyName))){
             throw new CastException("The parameter is not a number type.");
         } 
 

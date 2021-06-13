@@ -1,12 +1,12 @@
 import {createConnection} from "typeorm";
 
 export const connect = async () => { await createConnection({
-        type: "postgres",
-        host: "ec2-54-75-248-49.eu-west-1.compute.amazonaws.com",
-        port: 5432,
-        username: "ijmnrctliiubsu",
-        password: "bea22ee611eff566e9d1114d705900300ed9cec337ea82c0fa635782a0d595c1",
-        database: "ddgl2d6q4mmbd7",
+        type: process.env.DB_TYPE as any,
+        host: process.env.DB_HOST,
+        port: parseInt(process.env.DB_PORT),
+        username: process.env.DB_USERNAME,
+        password: process.env.DB_PASSWORD,
+        database: process.env.DB_NAME,
         ssl: true,
         extra: {
             ssl: {

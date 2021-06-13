@@ -11,15 +11,12 @@ import { required } from "../../core/decorator/required.decorator"
  */
 export class UserService {
 
-    private _userRepo: UserRepository;
-
-    constructor(){
-        this._userRepo = getCustomRepository(UserRepository);
-    }
-
     public async createUser(model: UserModel): Promise<void | UserModel> {
+
+        const _userRepo = getCustomRepository(UserRepository);
+
         try {
-            return await this._userRepo.createAndSave(model).then((user: User) => {
+            return await _userRepo.createAndSave(model).then((user: User) => {
 
                 return new UserModel(user.id,
                     user.username,
@@ -37,8 +34,11 @@ export class UserService {
     }
 
     public async updateUserPassword(model: UserModel): Promise<void | UserModel> {
+
+        const _userRepo = getCustomRepository(UserRepository);
+
         try {
-            return await this._userRepo.updateAndSave(model).then((user: User) => {
+            return await _userRepo.updateAndSave(model).then((user: User) => {
 
                 return new UserModel(user.id,
                     user.username,
@@ -57,8 +57,11 @@ export class UserService {
 
     @validateId
     public async getUser(@required id: number): Promise<void | UserModel> {
+
+        const _userRepo = getCustomRepository(UserRepository);
+
         try {
-            return await this._userRepo.readById(id).then((user: User) => {
+            return await _userRepo.readById(id).then((user: User) => {
 
                 return new UserModel(user.id,
                     user.username,
@@ -77,8 +80,11 @@ export class UserService {
 
     @validateId
     public async deleteUser(@required id: number): Promise<void | boolean> {
+
+        const _userRepo = getCustomRepository(UserRepository);
+
         try {
-            return await this._userRepo.deleteById(id).then((isDeleted: boolean) => {
+            return await _userRepo.deleteById(id).then((isDeleted: boolean) => {
 
                 return isDeleted;
             }).catch((error: any) => {

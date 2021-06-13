@@ -1,15 +1,13 @@
 import { Router, Request, Response } from 'express';
 import { UserService } from '../../bs/service/user.service';
-import * as bodyParser from 'body-parser';
 import {UserModel} from '../../bs/model/user.model';
 
 export const user = Router();
 const userService = new UserService();
 const _badRequestMessage: string = 'Error: Bad Request';
-const jsonParser = bodyParser.json();
 
 // Create user
-user.post('/user',jsonParser,  async (req: Request,res: Response) => {
+user.post('/user', async (req: Request,res: Response) => {
 
     if(req.body?.user){
         userService.createUser(req.body.user).then((user: UserModel) => {

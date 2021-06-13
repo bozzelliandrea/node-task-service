@@ -1,5 +1,6 @@
+import { BaseModel } from "./base-model.interface";
 
-export class UserModel {
+export class UserModel implements BaseModel{
 
     id: number;
     username: string;
@@ -8,7 +9,7 @@ export class UserModel {
     surname: string;
     email: string;
 
-    constructor(id?: number,
+    constructor(id: number,
             username?: string,
             password?: string,
             name?: string,
