@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/bozzaccio/mern-board#readme",
   "devDependencies": {
-    "@types/cors": "^2.8.10",
+    "@types/cors": "^2.8.12",
     "@types/dotenv": "^8.2.0",
     "@types/express": "4.17.12",
     "@types/helmet": "^4.0.0",
